@@ -1,0 +1,29 @@
+<p-table #table id="rick-and-morty-table" [value]="characters" dataKey="rick-and-morty-table" [lazy]="true"
+    [scrollable]=" true" class="table-view-height">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Species</th>
+            <th>Gender</th>
+            <th>Origin</th>
+            <th>Location</th>
+            <th>Image</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-character>
+        <tr>
+            <td>{{ character.id }}</td>
+            <td>{{ character.name }}</td>
+            <td>{{ character.status }}</td>
+            <td>{{ character.species }}</td>
+            <td>{{ character.gender }}</td>
+            <td>{{ character.origin.name }}</td>
+            <td>{{ character.location.name }}</td>
+            <td>
+                <img [src]="character.image" alt="{{ character.name }}" width="50" />
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
