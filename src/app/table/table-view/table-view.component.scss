@@ -1,3 +1,34 @@
-.table-view-height{
+.table-view-height {
     height: calc(100svh - 169px);
+}
+
+
+.skeleton-element {
+    background-color: #eee;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: skeleton-loading 2s infinite;
+    }
+}
+
+@keyframes skeleton-loading {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }

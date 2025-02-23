@@ -1,28 +1,32 @@
-<p-table #table id="rick-and-morty-table" [value]="characters" dataKey="rick-and-morty-table" [lazy]="true"
-    [scrollable]=" true" class="table-view-height">
+<p-table #table id="rick-and-morty-table" [value]="characters" [lazy]="true" (onLazyLoad)="onFilterChange()"
+    [scrollable]="true" styleClass="p-datatable-sm table-view-height" responsiveLayout="scroll"
+    [(selection)]="selectedItems" (selectionChange)="onTableSelectionChange($event)" [rows]="filters.pageSize"
+    [totalRecords]="totalCount" [paginator]="true" (onPage)="onPageChange($event)">
     <ng-template pTemplate="header">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Species</th>
-            <th>Gender</th>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th pSortableColumn="species">Species <p-sortIcon field="species"></p-sortIcon></th>
+            <th pSortableColumn="gender">Gender <p-sortIcon field="gender"></p-sortIcon></th>
             <th>Origin</th>
             <th>Location</th>
             <th>Image</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-character>
+
+    <ng-template pTemplate="body" let-character let-i="rowIndex">
         <tr>
-            <td>{{ character.id }}</td>
-            <td>{{ character.name }}</td>
-            <td>{{ character.status }}</td>
-            <td>{{ character.species }}</td>
-            <td>{{ character.gender }}</td>
-            <td>{{ character.origin.name }}</td>
-            <td>{{ character.location.name }}</td>
-            <td>
-                <img [src]="character.image" alt="{{ character.name }}" width="50" />
+            <td>{{character.id}}</td>
+            <td>{{character.name}}</td>
+            <td>{{character.status}}</td>
+            <td>{{character.species}}</td>
+            <td>{{character.gender}}</td>
+            <td>{{character.origin?.name || 'Unknown'}}</td>
+            <td>{{character.location?.name || 'Unknown'}}</td>
+            <td >
+                <img [ngClass]="{'skeleton-element': loadingStates[i]}" [src]="character.image" [alt]="character.name" width="50" loading="lazy"
+                decoding="async" (load)="onImageLoad(i)" />
             </td>
         </tr>
     </ng-template>

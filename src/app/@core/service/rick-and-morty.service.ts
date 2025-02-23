@@ -10,7 +10,7 @@ export class RickAndMortyService {
 
   constructor(private http: HttpClient) { }
 
-  getCharacters(): Observable<Character[]> {
-    return this.http.get<RickAndMortyApiResponse>('https://rickandmortyapi.com/api/character').pipe(map((res: RickAndMortyApiResponse) => res.results));
+  getCharacters(searchParams: string): Observable<RickAndMortyApiResponse> {
+    return this.http.get<RickAndMortyApiResponse>(`https://rickandmortyapi.com/api/character?${searchParams}`);
   }
 }
